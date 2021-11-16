@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     ActionBar actionBar;
     TextView deviceset;
+    TextView errorcode;
     Button printbarcode;
     EditText pin;
     AlertDialog dialog;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         deviceset = (TextView) findViewById(R.id.device);
+        errorcode = (TextView) findViewById(R.id.errormsg);
         deviceset.setText(deviceId);
 
         mDriverManager = MyApp.sDriverManager;
@@ -166,9 +168,15 @@ public class MainActivity extends AppCompatActivity {
                         postaction = postaction.trim();
                         dialog.dismiss();
 
-                        printBar(postaction);
+                        if(postaction.equals("")){
+                            errorcode.setText("Order number not found");
+                            errorcode.setVisibility(View.VISIBLE);
 
+                        }else {
+                            errorcode.setVisibility(View.INVISIBLE);
+                            printBar(postaction);
 
+                        }
 
 
 
