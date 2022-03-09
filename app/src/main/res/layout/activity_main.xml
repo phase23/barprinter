@@ -37,9 +37,10 @@
         android:id="@+id/sbbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:width="280dp"
         android:background="#4CAF50"
         android:padding="15dp"
-        android:text="Print"
+        android:text="Print Barcodes"
         android:textColor="#FDFDFD"
         android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,6 +49,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.386" />
+
+
+    <Button
+        android:id="@+id/villeats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="280dp"
+        android:background="#162435"
+        android:padding="15dp"
+        android:text="VillaEats Receipts"
+        android:textColor="#FDFDFD"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.558" />
 
     <TextView
         android:id="@+id/device"
