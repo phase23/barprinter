@@ -1,9 +1,14 @@
 <resources>
-    <string name="pref_settings">Test</string>
-    <string name="key_settings">Test</string>
+    <string name="pref_settings">Quickpay Card Processor</string>
+    <string name="key_settings">Quickpay Card Processor</string>
 
     <string name="pref_os">System</string>
     <string name="key_os">System</string>
+
+
+    <string name="pref_setting">Device</string>
+    <string name="key_setting">Device</string>
+
 
     <string name="pref_init">Initializing</string>
     <string name="key_init">Initializing</string>
@@ -38,11 +43,23 @@
     <string name="key_bt">Bluetooth</string>
     <string name="pref_bt">Bluetooth</string>
 
-    <string name="pref_card">Card</string>
-    <string name="key_card">Card</string>
+    <string name="pref_card">Swipe Card</string>
+    <string name="key_card">Swipe Card</string>
 
-    <string name="pref_magnetic">Magnetic stripe card</string>
-    <string name="key_magnetic">Magnetic stripe card</string>
+    <string name="pref_magnetic">Try Card Again</string>
+    <string name="key_magnetic">Try Card Again</string>
+
+
+
+    <string name="pref_addpoints">Add Loyalty Points</string>
+    <string name="key_addpoints">Add Loyalty Points</string>
+
+    <string name="pref_registercard">Register a Card</string>
+    <string name="key_registercard">Register a Card</string>
+
+    <string name="pref_viewpoints">View Points on Card</string>
+    <string name="key_viewpoints">View Points on Card </string>
+
 
     <string name="key_read_all">Bank card</string>
     <string name="pref_read_all">Bank card</string>
@@ -54,6 +71,10 @@
 
     <string name="pref_rf">Contactless card</string>
     <string name="key_rf">Contactless card</string>
+
+    <string name="pref_felica">FeliCa</string>
+    <string name="key_felica">FeliCa</string>
+
 
     <string name="pref_m1">M1 card</string>
     <string name="key_m1">M1 card</string>
@@ -88,14 +109,27 @@
     <string name="pref_scan">Scan</string>
     <string name="key_scan">Scan</string>
 
+    <string name="pref_email">Email Invoice</string>
+    <string name="key_email">Email Invoice</string>
+
+
+
     <string name="pref_fingerprint">Fingerprint</string>
     <string name="key_fingerprint">Fingerprint</string>
 
     <string name="pref_whole_engine_test">WholeTest</string>
     <string name="key_whole_engine_test">WholeTest</string>
 
-    <string name="pref_update_app">UpdateAPP</string>
-    <string name="key_update_app">UpdateAPP</string>
+    <string name="pref_loyalty_points">Loyalty Points</string>
+    <string name="key_loaylty_points">Loyalty Points</string>
+
+    <string name="pref_update_app">Start a Subscription</string>
+    <string name="key_update_app">Start a Subscription</string>
+
+    <string name="pref_subscription">Start a Subscription</string>
+    <string name="key_subscription">Start a Subscription</string>
+
+
     <!--os info-->
     <string name="pref_show_log">Show log</string>
     <string name="key_show_log">Show log</string>

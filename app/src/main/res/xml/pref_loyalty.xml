@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_addpoints"
+        android:title="@string/pref_addpoints"/>
+
+
+
+    <Preference
+        android:key="@string/key_viewpoints"
+        android:title="@string/pref_viewpoints"/>
+
+    <Preference
+        android:key="@string/key_registercard"
+        android:title="@string/pref_registercard"/>
+
+
+
+</PreferenceScreen>

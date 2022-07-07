@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Barcodes</string>
+    <string name="app_name">QuickPay AI</string>
     <!--menu-->
     <string name="menu_scan">Activate barcode</string>
     <string name="input_pwd">Please enter password</string>
@@ -31,7 +31,7 @@
     <string name="msg_mag_card">Please swipe card</string>
     <string name="msg_ic_card">Please insert IC card</string>
     <string name="msg_rf_card">Please swing card</string>
-    <string name="msg_m1_card">Please swing m1 card</string>
+    <string name="msg_m1_card">Please Tap card on device</string>
     <string name="msg_mf_puls_card">Please swing mf puls card</string>
     <!--sdk sdkult-->
     <string name="SDK_OK">OK</string>

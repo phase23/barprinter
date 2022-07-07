@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference
-        android:key="@string/key_read_all"
-        android:title="@string/pref_read_all"/>
+
     <Preference
         android:key="@string/key_magnetic"
         android:title="@string/pref_magnetic"/>
+
+    <!--
+    <Preference
+        android:key="@string/key_read_all"
+        android:title="@string/pref_read_all"/>
+
     <Preference
         android:key="@string/key_ic"
         android:title="@string/pref_ic"/>
@@ -36,4 +40,5 @@
     <Preference
         android:key="@string/key_emv"
         android:title="@string/pref_emv"/>
+        -->
 </PreferenceScreen>

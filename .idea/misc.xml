@@ -4,6 +4,25 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/Documents/Z90_V1.2.3_190411_4G_demo/demo/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_addpoints.xml" value="0.22" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_card_success.xml" value="0.22" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_carddetails.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_emailinvoice.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_emailsent.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_linkdevice.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_nointernet.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_register_card.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_settings.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_subscription.xml" value="0.22" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/layout/activity_viewpoints.xml" value="0.5" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/menu/menu_main.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.12604166666666666" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/xml/pref_card.xml" value="0.22" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/xml/pref_loyalty.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/app/src/main/res/xml/pref_settings.xml" value="0.22" />
+        <entry key="..\:/Users/User/Documents/Z90_V1.2.3_quickpay_device/demo/zxing/src/main/res/xml/preferences.xml" value="0.1" />
       </map>
     </option>
   </component>
