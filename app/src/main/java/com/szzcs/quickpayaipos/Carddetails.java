@@ -124,7 +124,7 @@ Button dochargecard;
             @Override
             public void onClick(View v) {
 
-                thisamount = samount.getText().toString();
+                    thisamount = samount.getText().toString();
                 thiscvv = scvv.getText().toString();
 
                 boolean connected = false;
