@@ -99,11 +99,16 @@ public class SettingsFragment extends PreferenceFragment {
         findPreference(getString(R.string.key_card)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                title = getString(R.string.pref_card);
-                switchFragment(SettingsFragment.this, new CardFragment());
 
+                title = getString(R.string.pref_card);
+               // switchFragment(SettingsFragment.this, new CardFragment());
+                Intent intent = new Intent(getActivity(), Paybase.class);
+                startActivity(intent);
 
                 return true;
+
+
+
             }
         });
 
@@ -129,6 +134,23 @@ public class SettingsFragment extends PreferenceFragment {
                 return true;
             }
         });
+
+        findPreference(getString(R.string.key_transactions)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                title = getString(R.string.pref_card);
+                // switchFragment(SettingsFragment.this, new CardFragment());
+                Intent intent = new Intent(getActivity(), Showtransactions.class);
+                startActivity(intent);
+
+                return true;
+
+
+
+            }
+        });
+
 
 
 

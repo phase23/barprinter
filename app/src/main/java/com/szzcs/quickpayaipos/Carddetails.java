@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import okhttp3.Call;
@@ -34,6 +38,7 @@ String getcardno;
 String getexpiry;
 TextView  cardname;
 TextView  cardno;
+    TextView  thisfinal;
     TextView  cardresulttxt;
     Button trybtn;
 Button dochargecard;
@@ -46,7 +51,8 @@ Button dochargecard;
     Handler handler2;
     String fname;
     String lname;
-
+    String chargethis;
+String tip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +62,25 @@ Button dochargecard;
         getcardno = getIntent().getExtras().getString("cardno");
         getexpiry = getIntent().getExtras().getString("expiry");
 
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        chargethis = preferences.getString("chargetotal", "");
+        tip = preferences.getString("incltip", "");
+
+
+        double createTotal = 0;
+        try {
+            createTotal = Float.parseFloat(chargethis);
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
+
+
         cardname = (TextView)findViewById(R.id.trck1);
         cardno = (TextView)findViewById(R.id.trck2);
         cardresulttxt = (TextView)findViewById(R.id.cardresult);
+        thisfinal = (TextView)findViewById(R.id.finalcharge);
+
 
         String thismydevice = Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -66,6 +88,14 @@ Button dochargecard;
 
         samount = (EditText)findViewById(R.id.amount);
         scvv = (EditText)findViewById(R.id.cvv);
+
+        String COUNTRY = "US";
+        String LANGUAGE = "en";
+        String nicecharge = NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(createTotal);
+        samount.setText(chargethis);
+        thisfinal.setText(nicecharge);
+         //Toast.makeText(getApplicationContext(), "Over here:" + chargethis, Toast.LENGTH_LONG).show();
+
 
         dochargecard = (Button)findViewById(R.id.chargecard);
         blinkback = (Button)findViewById(R.id.linkback);
@@ -175,8 +205,8 @@ Button dochargecard;
                         dochargecard.setText("Please wait...");
                         dochargecard.setEnabled(false);
 
-                        Log.i("[print]", "https://quickpay.ai/api_chargecard.php?deviceid=" + thismydevice + "&ccnumber=" + getcardno + "&cvv=" + thiscvv + "&charge=" + thisamount + "&expr=" + getexpiry + "&ccname=" + fname + ' ' + lname);
-                        doGetRequest("https://quickpay.ai/api_chargecard.php?deviceid=" + thismydevice + "&ccnumber=" + getcardno + "&cvv=" + thiscvv + "&charge=" + thisamount + "&expr=" + getexpiry + "&ccname=" + fname + ' ' + lname);
+                        Log.i("[print]", "https://quickpay.ai/api_chargecard.php?deviceid=" + thismydevice + "&ccnumber=" + getcardno + "&cvv=" + thiscvv + "&charge=" + thisamount + "&expr=" + getexpiry + "&ccname=" + fname + ' ' + lname + "&tip=" + tip);
+                        doGetRequest("https://quickpay.ai/api_chargecard.php?deviceid=" + thismydevice + "&ccnumber=" + getcardno + "&cvv=" + thiscvv + "&charge=" + thisamount + "&expr=" + getexpiry + "&ccname=" + fname + ' ' + lname  + "&tip=" + tip);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

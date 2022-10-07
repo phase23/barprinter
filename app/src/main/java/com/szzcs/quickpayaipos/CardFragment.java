@@ -118,6 +118,7 @@ public class CardFragment extends PreferenceFragment {
         // search card and read, just wait a moment
 
         // read mag card
+       /*
         findPreference(getString(R.string.key_magnetic)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -126,7 +127,7 @@ public class CardFragment extends PreferenceFragment {
                 return true;
             }
         });
-
+*/
 
 
 

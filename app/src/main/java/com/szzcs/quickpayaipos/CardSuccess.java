@@ -27,6 +27,7 @@ public class CardSuccess extends AppCompatActivity {
     Button printr;
     String getall;
     Button blinkback;
+    myDbAdapter helper;
 
     private DriverManager mDriverManager = MyApp.sDriverManager;
     private Printer mPrinter;
@@ -48,8 +49,72 @@ public class CardSuccess extends AppCompatActivity {
         setContentView(R.layout.activity_card_success);
         String gettransid = getIntent().getExtras().getString("transid");
          getall = getIntent().getExtras().getString("puttall");
+
+        helper = new myDbAdapter(this);
+
+        String[] pieces = getall.split(Pattern.quote("~"));
+        String icompany = pieces[13].trim();
+        String icountry = pieces[15].trim();
+        String idater = pieces[17].trim();
+        String itel = pieces[16].trim();
+        String itrans  = pieces[6].trim();
+        String ilastdigits  = pieces[9].trim();
+        String itotalp  = pieces[18].trim();
+        String  itimestamp  = pieces[20].trim();
+        String  tip  = pieces[21].trim();
+
+        double getTip = 0.00;
+        try {
+            getTip = Float.parseFloat(tip);
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
+
+        double chargeprice = 0.00;
+        try {
+            chargeprice = Float.parseFloat(itotalp);
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
+
+
+        int inttimestamp = 0;
+        try {
+            inttimestamp = Integer.parseInt(itimestamp);
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
+
+        int intlastdigits = 0;
+        try {
+            intlastdigits = Integer.parseInt(ilastdigits);
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
+
+
+
+    long id  = helper.insertData(itrans, inttimestamp, icompany, idater, getTip, chargeprice, intlastdigits );
+
+    if(id<=0)
+    {
+        //Message.message(getApplicationContext(),"Insertion Unsuccessful");
+        //Toast.makeText(getApplicationContext(), "Insertion Failed", Toast.LENGTH_LONG).show();
+
+
+    } else
+    {
+        Message.message(getApplicationContext(),"Transaction Completed");
+        //Toast.makeText(getApplicationContext(), "Transaction Completed", Toast.LENGTH_LONG).show();
+
+    }
+
+
+
+
         gettransaction = (TextView)findViewById(R.id.transid);
         gettransaction.setText(gettransid);
+
 
 
         mDriverManager = MyApp.sDriverManager;

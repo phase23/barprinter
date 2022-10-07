@@ -80,7 +80,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.1'
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
-
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 }

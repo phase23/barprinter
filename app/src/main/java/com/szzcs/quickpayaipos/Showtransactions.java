@@ -2,22 +2,18 @@ package com.szzcs.quickpayaipos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.provider.Settings;
+import android.text.Html;
 import android.text.Layout;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.szzcs.quickpayaipos.utils.DialogUtils;
@@ -28,34 +24,16 @@ import com.zcs.sdk.Sys;
 import com.zcs.sdk.print.PrnStrFormat;
 import com.zcs.sdk.print.PrnTextStyle;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-public class Linkdevice extends AppCompatActivity {
-    Button blinkback;
-    Button doreprint;
-
-
-
-    Button blinkupdate;
-    TextView setdeviceid;
-    TextView setstatus;
-    String postaction;
-    EditText pin;
-    Handler handler2;
-
-
+public class Showtransactions extends AppCompatActivity {
+    ListView listView;
+    myDbAdapter helper;
     private DriverManager mDriverManager = MyApp.sDriverManager;
     private Printer mPrinter;
     private boolean mPrintStatus = false;
     private Bitmap mBitmapDef;
-    String orderdetails;
     public static final String PRINT_TEXT = "本智能POS机带打印机，基于android 平台应用，整合昂贵的ECR、收银系统，伴随新型扫码支付的需求也日益突出，大屏智能安卓打印机设备，内置商户的营销管理APP，在商品管理的同时，受理客户订单支付，很好的满足了以上需求；同时便携式的要求，随着快递实名制的推行，运用在快递行业快速扫条码进件。做工精良，品质优良，是市场的最佳选择。";
     public static final String QR_TEXT = "https://www.baidu.com";
     public static final String BAR_TEXT = "50001";
@@ -63,12 +41,14 @@ public class Linkdevice extends AppCompatActivity {
     public static final String BAR_TEXT3 = "50003";
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_linkdevice);
+        setContentView(R.layout.activity_showtransactions);
+
+        helper = new myDbAdapter(this);
+        String data = helper.getData();
+        String[] trx = data.split(Pattern.quote("@"));
 
 
         mDriverManager = MyApp.sDriverManager;
@@ -86,124 +66,73 @@ public class Linkdevice extends AppCompatActivity {
 
 
 
-        String thismydevice = Settings.Secure.getString(this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
 
+        listView=(ListView)findViewById(R.id.listout);
+        ArrayList<String> arrayList=new ArrayList<>();
 
-        handler2 = new Handler(Looper.getMainLooper());
+        for (int i = 0; i < trx.length; i++) {
 
-        blinkback = (Button)findViewById(R.id.linkback);
-        doreprint = (Button)findViewById(R.id.reprint);
-
-        blinkupdate = (Button)findViewById(R.id.linkupdate);
-        setdeviceid = (TextView)findViewById(R.id.deviceid);
-        setstatus= (TextView)findViewById(R.id.status);
-       // pin = (EditText)findViewById(R.id.linkcode);
-       // String thispin = pin.getText().toString();
-
-        try {
-        Log.i("[print]","https://quickpay.ai/api_checkdevice.php?deviceid=" + thismydevice );
-        doGetRequest("https://quickpay.ai/api_checkdevice.php?deviceid=" + thismydevice);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+            arrayList.add(trx[i]);
+        }
 
 
 
-        setdeviceid.setText(thismydevice);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList);
+        listView.setAdapter(arrayAdapter);
 
-        blinkback.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(Linkdevice.this, MainActivity.class);
-
-                startActivity(intent);
-
-            }
-
-        });
+                String cliked = arrayList.get(position);
+                String requiredString = cliked.substring(cliked.indexOf("n:") + 1, cliked.indexOf("Da"));
+                //Toast.makeText(getApplicationContext(), "Click item " + position + " " + requiredString, Toast.LENGTH_LONG).show();
 
 
-        doreprint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Showtransactions.this);
+                builder.setTitle("Confirm Print");
 
+                builder.setMessage(Html.fromHtml("Confirm Print Receipt " ));
 
-                try {
-                    Log.i("[print]","https://quickpay.ai/api_printlast.php?deviceid=" + thismydevice );
-                    doprintRequest("https://quickpay.ai/api_printlast.php?deviceid=" + thismydevice);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("accept tag", requiredString);
 
+                        String getdata = helper.retrieveData(requiredString);
 
-            }
-
-        });
-
-
-
-
-
-
-    }
-
-
-    void doprintRequest(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        OkHttpClient client = new OkHttpClient();
-        client.newCall(request)
-                .enqueue(new Callback() {
-                    @Override
-                    public void onFailure(final Call call, IOException e) {
-                        // Error
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // For the example, you can show an error dialog or a toast
-                                // on the main UI thread
-                                Log.i("[print]","error" + e);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-                        postaction = response.body().string();
-                        Log.i("assyn url",postaction);
-                        // Do something with the response
-
-
-                        Log.i("[print]",postaction);
-                        postaction = postaction.trim();
-                        printswipe(postaction);
-
+                        printswipe(getdata);
 
 
                     }
                 });
+
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
+
+
+
+
+
+
+
+            }
+        });
+
+
     }
 
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
-                INPUT_METHOD_SERVICE);
-        View focusedView = this.getCurrentFocus();
-
-        if (focusedView != null) {
-            imm.hideSoftInputFromWindow(focusedView.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-
-        return true;
-    }
 
 
     private void printswipe(String orders) {
@@ -220,7 +149,7 @@ public class Linkdevice extends AppCompatActivity {
                     public void run() {
                         int printStatus = mPrinter.getPrinterStatus();
                         if (printStatus == SdkResult.SDK_PRN_STATUS_PAPEROUT) {
-                            Linkdevice.this.runOnUiThread(new Runnable() {
+                            Showtransactions.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     DialogUtils.show(getApplicationContext(), getString(R.string.printer_out_of_paper));
@@ -229,15 +158,17 @@ public class Linkdevice extends AppCompatActivity {
                             });
                         } else {
 
+                            Log.i("print", orders);
                             String[] pieces = orders.split(Pattern.quote("~"));
-                            String company = pieces[1].trim();
-                            String country = pieces[3].trim();
-                            String dater = pieces[5].trim();
-                            String tel = pieces[4].trim();
-                            String trans  = pieces[8].trim();
-                            String lastdigits  = pieces[7].trim();
-                            String totalp  = pieces[6].trim();
-                            String addr  = pieces[2].trim();
+                            String company = pieces[5].trim();
+                            String dater = pieces[1].trim();
+                            String lastdigits  = pieces[4].trim();
+                            String totalp  = pieces[3].trim();
+                            String tips  = pieces[2].trim();
+                            String trans  = pieces[0].trim();
+
+
+
 
 
                             PrnStrFormat format = new PrnStrFormat();
@@ -248,13 +179,12 @@ public class Linkdevice extends AppCompatActivity {
                             mPrinter.setPrintAppendString(company, format);
                             format.setTextSize(30);
                             format.setStyle(PrnTextStyle.NORMAL);
-                            mPrinter.setPrintAppendString(tel, format);
+                            mPrinter.setPrintAppendString("copy", format);
                             format.setTextSize(25);
-                            mPrinter.setPrintAppendString(addr, format);
-                            mPrinter.setPrintAppendString(country, format);
+
                             format.setAli(Layout.Alignment.ALIGN_NORMAL);
                             mPrinter.setPrintAppendString("All prices in USD ", format);
-                            mPrinter.setPrintAppendString("Transaction: " + trans, format);
+                            mPrinter.setPrintAppendString("Traceid: " + trans, format);
                             // mPrinter.setPrintAppendString("Some Items may vary due to in-store availability", format);
                             mPrinter.setPrintAppendString("_________________________", format);
 
@@ -271,7 +201,7 @@ public class Linkdevice extends AppCompatActivity {
                                     public String  thisdelivery;
                                     public String alltotal;
                                  */
-
+                            mPrinter.setPrintAppendString("Tip : $" + tips , format);
                             mPrinter.setPrintAppendString("Total : $" + totalp , format);
                             mPrinter.setPrintAppendString("Date : " + dater , format);
                             mPrinter.setPrintAppendString(" ", format);
@@ -296,7 +226,7 @@ public class Linkdevice extends AppCompatActivity {
                      */
                             printStatus = mPrinter.setPrintStart();
                             if (printStatus == SdkResult.SDK_PRN_STATUS_PAPEROUT) {
-                                Linkdevice.this.runOnUiThread(new Runnable() {
+                                Showtransactions.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         DialogUtils.show(getApplicationContext(), getString(R.string.printer_out_of_paper));
@@ -323,7 +253,7 @@ public class Linkdevice extends AppCompatActivity {
             public void run() {
                 int printStatus = mPrinter.getPrinterStatus();
                 if (printStatus == SdkResult.SDK_PRN_STATUS_PAPEROUT) {
-                    Linkdevice.this.runOnUiThread(new Runnable() {
+                    Showtransactions.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             DialogUtils.show(getApplicationContext(), getString(R.string.printer_out_of_paper));
@@ -360,63 +290,6 @@ public class Linkdevice extends AppCompatActivity {
     }
 
 
-    void doGetRequest(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        OkHttpClient client = new OkHttpClient();
-        client.newCall(request)
-                .enqueue(new Callback() {
-                    @Override
-                    public void onFailure(final Call call, IOException e) {
-                        // Error
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // For the example, you can show an error dialog or a toast
-                                // on the main UI thread
-                                Log.i("[print]","error" + e);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-                        postaction = response.body().string();
-                        Log.i("assyn url",postaction);
-                        // Do something with the response
-
-
-                        Log.i("[print]",postaction);
-                        postaction = postaction.trim();
-
-                        if(postaction.equals("Offline")){
-
-                            Intent intent = new Intent(Linkdevice.this, Dolink.class);
-                            startActivity(intent);
-
-                        }
-
-
-
-                        if(postaction.equals("Online")) {
-                            handler2.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    setstatus.setText(postaction);
-
-
-                                }
-                            });
-
-                        }
-
-
-                    }
-                });
-    }
 
 
 

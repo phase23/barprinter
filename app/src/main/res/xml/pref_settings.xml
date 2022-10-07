@@ -28,6 +28,13 @@
         android:key="@string/key_subscription"
         android:title="@string/pref_subscription"/>
 
+
+
+    <Preference
+        android:icon="@mipmap/beeper"
+        android:key="@string/key_transactions"
+        android:title="@string/pref_transactions"/>
+
     <Preference
         android:icon="@mipmap/set"
         android:key="@string/key_setting"

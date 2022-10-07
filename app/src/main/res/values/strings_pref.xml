@@ -43,8 +43,8 @@
     <string name="key_bt">Bluetooth</string>
     <string name="pref_bt">Bluetooth</string>
 
-    <string name="pref_card">Swipe Card</string>
-    <string name="key_card">Swipe Card</string>
+    <string name="pref_card">Charge Card</string>
+    <string name="key_card">Charge Card</string>
 
     <string name="pref_magnetic">Try Card Again</string>
     <string name="key_magnetic">Try Card Again</string>
@@ -135,6 +135,9 @@
     <string name="key_show_log">Show log</string>
     <string name="pref_beep">Beeper</string>
     <string name="key_beep">Open the beep</string>
+    <string name="pref_transactions">Card Transactions</string>
+    <string name="key_transactions">Card Transactions</string>
+
     <string name="pref_led">LED</string>
     <string name="key_led">LED</string>
     <string name="pref_pid">Terminal SN</string>
