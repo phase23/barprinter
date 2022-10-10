@@ -196,6 +196,7 @@ public class CardSuccess extends AppCompatActivity {
                                 String trans  = pieces[3].trim();
                                 String lastdigits  = pieces[19].trim();
                                 String totalp  = pieces[18].trim();
+                                String  tip  = pieces[21].trim();
 
                                 PrnStrFormat format = new PrnStrFormat();
                                 format.setTextSize(50);
@@ -228,6 +229,7 @@ public class CardSuccess extends AppCompatActivity {
                                     public String alltotal;
                                  */
 
+                                mPrinter.setPrintAppendString("Tip : $" + tip , format);
                                 mPrinter.setPrintAppendString("Total : $" + totalp , format);
                                 mPrinter.setPrintAppendString("Date : " + dater , format);
                                 mPrinter.setPrintAppendString(" ", format);

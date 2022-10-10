@@ -201,8 +201,8 @@ public class Showtransactions extends AppCompatActivity {
                                     public String  thisdelivery;
                                     public String alltotal;
                                  */
-                            mPrinter.setPrintAppendString("Tip : $" + tips , format);
-                            mPrinter.setPrintAppendString("Total : $" + totalp , format);
+                            mPrinter.setPrintAppendString("Tip : " + tips , format);
+                            mPrinter.setPrintAppendString("Total : " + totalp , format);
                             mPrinter.setPrintAppendString("Date : " + dater , format);
                             mPrinter.setPrintAppendString(" ", format);
                             format.setStyle(PrnTextStyle.NORMAL);

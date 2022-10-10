@@ -78,7 +78,7 @@ public class myDbAdapter {
 
         SQLiteDatabase db = myhelper.getWritableDatabase();
         String[] columns = {myDbHelper.UID,myDbHelper.COMPANY, myDbHelper.TRANSACTIONID,myDbHelper.TIMESTAMP, myDbHelper.DEDATE,myDbHelper.TIP,myDbHelper.TOTAL,myDbHelper.LASTDIGIT };
-       Cursor cursor =db.query(myDbHelper.TABLE_NAME + " where transactionid = '" + tranx + "'",columns,null,null,null,null, myDbHelper.TIMESTAMP + " DESC");
+       Cursor cursor =db.query(myDbHelper.TABLE_NAME + " where transactionid = '" + tranx + "'",columns,null,null,null,null, myDbHelper.TIMESTAMP + " DESC limit 60");
 
 
         StringBuffer buffer= new StringBuffer();

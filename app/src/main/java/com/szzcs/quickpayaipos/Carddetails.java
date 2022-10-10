@@ -52,7 +52,9 @@ Button dochargecard;
     String fname;
     String lname;
     String chargethis;
-String tip;
+    String tip;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
